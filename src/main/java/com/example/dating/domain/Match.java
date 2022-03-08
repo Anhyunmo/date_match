@@ -1,6 +1,9 @@
 package com.example.dating.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,12 +11,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Match {
 
     @Id
@@ -35,4 +41,6 @@ public class Match {
     @JoinColumn(name = "to_member_id", foreignKey = @ForeignKey(name = "FK_MEMBER_TB_MATCH2"))
     private Member toMember;
 
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<Chat> chats;
 }

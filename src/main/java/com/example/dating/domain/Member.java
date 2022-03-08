@@ -2,6 +2,7 @@ package com.example.dating.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,8 @@ import java.util.List;
 @Builder
 @Data
 @Entity
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Member {
 
     @Id
@@ -33,11 +36,6 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    enum Gender{
-        Man,
-        Woman
-    }
-
     @Column(length = 3)
     private int age;
 
@@ -50,10 +48,22 @@ public class Member {
     @Column
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "fromMember")
-    private List<Match> match;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<Search> searches;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "toMember")
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Match> matches;
+
+    enum Gender{
+        Man,
+        Woman
+    }
+
+
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "fromMember")
+//    private List<Match> match;
+//
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "toMember")
+//    private List<Match> matches;
 
 }

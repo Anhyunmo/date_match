@@ -20,7 +20,8 @@ public class Search {
     private int id;
 
     @Column
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     @Column(name = "range_start")
     private int rangeStart;
@@ -29,7 +30,11 @@ public class Search {
     private int rangeEnd;
 
     @ManyToOne
-    @JoinColumn(name = "member_id", foreignKey = @ForeignKey(name = "FK_MEMBER_TB_SEARCH"))
+    @JoinColumn(name = "member_id")
     private Member member;
 
+    public enum Type{
+        Age,
+        Tall
+    }
 }

@@ -13,17 +13,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Chatting {
+public class Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
-    private String message;
+    private String contents;
 
     @ManyToOne
-    @JoinColumn(name = "match_id", foreignKey = @ForeignKey(name = "FK_MATCH_TB_CHATTING"))
+    @JoinColumn(name = "match_id", nullable = false)
     private Match match;
 
 }
