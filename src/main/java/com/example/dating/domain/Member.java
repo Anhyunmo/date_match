@@ -51,8 +51,8 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Search> searches;
 
-    @OneToMany(mappedBy = "fromMember")
-    private List<Match> matches;
+//    @OneToMany(mappedBy = "fromMember")
+//    private List<Match> matches;
 
     enum Gender{
         Man,
