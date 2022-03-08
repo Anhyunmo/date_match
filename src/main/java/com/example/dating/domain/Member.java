@@ -1,12 +1,15 @@
 package com.example.dating.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -46,5 +49,11 @@ public class Member {
 
     @Column
     private String description;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "fromMember")
+    private List<Match> match;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "toMember")
+    private List<Match> matches;
 
 }
