@@ -48,10 +48,10 @@ public class Member {
     @Column
     private String description;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Search> searches;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "fromMember")
     private List<Match> matches;
 
     enum Gender{
